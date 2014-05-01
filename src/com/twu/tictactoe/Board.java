@@ -26,13 +26,15 @@ public class Board {
 
     public void start() {
         draw();
-        printStream.print("Please choose a number between 1-9 corresponding to the board: ");
-        char[][] firstChoice = handleChoice();
-        String currentBoard = redraw(firstChoice);
-        printStream.println(currentBoard);
+        printStream.print("Player 1, Please choose a number between 1-9 corresponding to the board: ");
+        String first = readline();
+        char[][] firstChoice = handleChoice(first, "");
+        printStream.print("Player 2, Please choose a number between 1-9 corresponding to the board: ");
+        String second = readline();
+        char[][] secondChoice = handleChoice(first, second);
     }
 
-    public String redraw(char[][] firstChoice) {
+    public void redraw(char[][] firstChoice) {
 
         String redrawBoard = "";
 
@@ -56,11 +58,10 @@ public class Board {
             redrawBoard += "\n";
         }
 
-        return redrawBoard;
+        printStream.println(redrawBoard);
     }
 
-    public char[][] handleChoice(){
-        String firstChoice = readline();
+    public char[][] handleChoice(String firstChoice, String secondChoice){
         char[][] currentBoard = new char[3][3];
 
         switch (Integer.parseInt(firstChoice)){
@@ -81,6 +82,27 @@ public class Board {
             case 8: currentBoard[2][1] = 'X';
                 break;
             case 9: currentBoard[2][2] = 'X';
+                break;
+        }
+
+        switch (Integer.parseInt(secondChoice)){
+            case 1: currentBoard[0][0] = 'O';
+                break;
+            case 2: currentBoard[0][1] = 'O';
+                break;
+            case 3: currentBoard[0][2] = 'O';
+                break;
+            case 4: currentBoard[1][0] = 'O';
+                break;
+            case 5: currentBoard[1][1] = 'O';
+                break;
+            case 6: currentBoard[1][2] = 'O';
+                break;
+            case 7: currentBoard[2][0] = 'O';
+                break;
+            case 8: currentBoard[2][1] = 'O';
+                break;
+            case 9: currentBoard[2][2] = 'O';
                 break;
         }
 

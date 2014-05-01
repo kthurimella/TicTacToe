@@ -41,9 +41,15 @@ public class BoardTest {
     @Test
     public void shouldReturnBoardWithCorrectPosition() throws IOException {
         when(bufferedReader.readLine()).thenReturn("3");
-        String newBoard = testBoard.redraw(testBoard.handleChoice());
-        String correctString = "  |   | X \n-----------\n  |   | \n-----------\n  |   |  \n";
-        assertEquals(newBoard, correctString);
+        testBoard.redraw(testBoard.handleChoice());
+        verify(printStream).println("  |   | X \n-----------\n  |   | \n-----------\n  |   |  \n");
+    }
+
+    @Test
+    public void shouldReturnBoardWithPlayerTwoMove() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("5");
+        testBoard.redraw(testBoard.handleChoice());
+        verify(printStream).println("  |   | X \n-----------\n  | O  | \n-----------\n  |   |  \n");
     }
 
     
