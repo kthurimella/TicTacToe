@@ -9,6 +9,7 @@ import java.io.PrintStream;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class BoardTest {
@@ -26,7 +27,7 @@ public class BoardTest {
     @Test
     public void shouldReturnBoardWhenBoardIsDrawn(){
         testBoard.draw();
-        verify(printStream, times(3)).println("   |   |   ");
+        verify(printStream).println("   |   |   \n-----------\n   |   |   \n-----------\n   |   |   ");
     }
 
     @Test
@@ -40,9 +41,9 @@ public class BoardTest {
     @Test
     public void shouldReturnBoardWithCorrectPosition() throws IOException {
         when(bufferedReader.readLine()).thenReturn("3");
-        testBoard.redraw(testBoard.handleChoice());
-        verify(printStream).println("");
-
+        String newBoard = testBoard.redraw(testBoard.handleChoice());
+        String correctString = "  |   | X \n-----------\n  |   | \n-----------\n  |   |  \n";
+        assertEquals(newBoard, correctString);
     }
 
     

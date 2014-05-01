@@ -20,47 +20,48 @@ public class Board {
     }
 
     public void draw() {
-
-
-        for(int size = 0; size < 3; size++){
-            printStream.println("   |   |   ");
-            if(size != 2 ){
-                printStream.println("-----------");
-            }
-        }
+        printStream.println("   |   |   \n-----------\n   |   |   \n" +
+                "-----------\n   |   |   ");
     }
 
     public void start() {
         draw();
         printStream.print("Please choose a number between 1-9 corresponding to the board: ");
         char[][] firstChoice = handleChoice();
-        redraw(firstChoice);
-
+        String currentBoard = redraw(firstChoice);
+        printStream.println(currentBoard);
     }
 
-    public void redraw(char[][] firstChoice) {
+    public String redraw(char[][] firstChoice) {
+
+        String redrawBoard = "";
 
         for(int row = 0; row < 3; row++) {
             for(int column = 0; column < 3; column++) {
                 if(column != 2) {
-                    printStream.print(firstChoice[row][column] + "  | ");
+                    redrawBoard += firstChoice[row][column] + "  | ";
                 }
                 else{
-                    printStream.println(firstChoice[row][column]);
+                    redrawBoard += firstChoice[row][column];
 
                 }
             }
 
+            redrawBoard += "\n";
+
             if(row != 2 ){
-                printStream.println("-----------");
+                redrawBoard += ("-----------");
             }
+
+            redrawBoard += "\n";
         }
+
+        return redrawBoard;
     }
 
     public char[][] handleChoice(){
         String firstChoice = readline();
         char[][] currentBoard = new char[3][3];
-        printStream.println(firstChoice);
 
         switch (Integer.parseInt(firstChoice)){
             case 1: currentBoard[0][0] = 'X';
