@@ -13,13 +13,14 @@ public class GameWinner {
 
     public boolean checkGameWinner(int[] currentBoard, int playerNumber) {
 
-        if((currentBoard[0] == currentBoard[1] && currentBoard[0] == currentBoard[2] && currentBoard[0] != 0)||
-                (currentBoard[6] == currentBoard[7] && currentBoard[6] == currentBoard[8] && currentBoard[0] != 0)||
-                (currentBoard[0] == currentBoard[3] && currentBoard[0] == currentBoard[6] && currentBoard[0] != 0)||
-                (currentBoard[1] == currentBoard[4] && currentBoard[1] == currentBoard[7] && currentBoard[0] != 0)||
-                (currentBoard[2] == currentBoard[5] && currentBoard[2] == currentBoard[8] && currentBoard[0] != 0)||
-                (currentBoard[0] == currentBoard[4] && currentBoard[0] == currentBoard[8] && currentBoard[0] != 0)||
-                (currentBoard[2] == currentBoard[4] && currentBoard[2] == currentBoard[6] && currentBoard[0] != 0))
+        if((currentBoard[0] == currentBoard[1] && currentBoard[0] == currentBoard[2] && currentBoard[0] != 0 && currentBoard[1] != 0 && currentBoard[2] != 0)||
+                (currentBoard[3] == currentBoard[4] && currentBoard[3] == currentBoard[5] && currentBoard[3] != 0 && currentBoard[4] != 0 && currentBoard[5] != 0)||
+                (currentBoard[6] == currentBoard[7] && currentBoard[6] == currentBoard[8] && currentBoard[6] != 0 && currentBoard[7] != 0 && currentBoard[8] != 0)||
+                (currentBoard[0] == currentBoard[3] && currentBoard[0] == currentBoard[6] && currentBoard[0] != 0 && currentBoard[3] != 0 && currentBoard[6] != 0)||
+                (currentBoard[1] == currentBoard[4] && currentBoard[1] == currentBoard[7] && currentBoard[1] != 0 && currentBoard[4] != 0 && currentBoard[7] != 0)||
+                (currentBoard[2] == currentBoard[5] && currentBoard[2] == currentBoard[8] && currentBoard[2] != 0 && currentBoard[5] != 0 && currentBoard[8] != 0)||
+                (currentBoard[0] == currentBoard[4] && currentBoard[0] == currentBoard[8] && currentBoard[0] != 0 && currentBoard[4] != 0 && currentBoard[8] != 0)||
+                (currentBoard[2] == currentBoard[4] && currentBoard[2] == currentBoard[6] && currentBoard[2] != 0 && currentBoard[4] != 0 && currentBoard[6] != 0))
         {
 
             printStream.println("Player "+Integer.toString(playerNumber)+" wins the game!");
