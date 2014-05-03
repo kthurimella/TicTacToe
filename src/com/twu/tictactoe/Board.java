@@ -19,24 +19,35 @@ public class Board {
     }
 
     public void playGame() {
-        printStream.print("Player 1, Please choose a number between 1-9 corresponding to the board: ");
-        String first = readline();
-        currentBoard = fillBoardArray(first, 1);
-        drawBoard.redraw(currentBoard);
-        printStream.print("Player 2, Please choose a number between 1-9 corresponding to the board: ");
-        String second = readline();
 
-        while(second.equals(first)){
-            printStream.println("Position is already taken!");
-            printStream.print("Player 2, Please choose a number between 1-9 corresponding to the board: ");
-            second = readline();
+        int playerNumber = 1;
+
+        while(isBoardEmpty(currentBoard)) {
+
+            if (playerNumber % 2 == 0) {
+                playerNumber = 2;
+            }
+            else if (playerNumber % 2 == 1) {
+                playerNumber = 1;
+            }
+
+            printStream.print("Player "+Integer.toString(playerNumber)+", Please choose a number between 1-9 corresponding to the board: ");
+            String choice = readline();
+            currentBoard = fillBoardArray(choice, playerNumber);
+            drawBoard.redraw(currentBoard);
+
+            playerNumber++;
         }
-        currentBoard = fillBoardArray(second, 2);
-        drawBoard.redraw(currentBoard);
     }
 
     public int[] fillBoardArray(String position, int playerNumber) {
         int intPosition = Integer.parseInt(position);
+
+        while(currentBoard[intPosition - 1] != 0){
+            printStream.println("Position is already taken!");
+            printStream.print("Player "+Integer.toString(playerNumber)+", Please choose a number between 1-9 corresponding to the board: ");
+            intPosition = Integer.parseInt(readline());
+        }
 
         if(playerNumber == 1) {
             currentBoard[intPosition - 1] = 1;
@@ -54,6 +65,15 @@ public class Board {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public boolean isBoardEmpty(int[] fullBoard) {
+        for (int aFullBoard : fullBoard) {
+            if (aFullBoard == 0) return true;
+        }
+
+        printStream.println("The game is a draw!");
+        return false;
     }
 }
 
