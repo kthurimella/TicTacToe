@@ -7,15 +7,17 @@ import java.io.PrintStream;
 
 public class Board {
 
+    private GameWinner gameWinner;
     private DrawBoard drawBoard;
     private BufferedReader bufferedReader;
     private PrintStream printStream;
     int[] currentBoard = new int[9];
 
-    public Board(BufferedReader bufferedReader, PrintStream printStream, DrawBoard drawBoard){
+    public Board(BufferedReader bufferedReader, PrintStream printStream, DrawBoard drawBoard, GameWinner gameWinner){
         this.printStream = printStream;
         this.bufferedReader = bufferedReader;
         this.drawBoard = drawBoard;
+        this.gameWinner = gameWinner;
     }
 
     public void playGame() {
@@ -31,10 +33,15 @@ public class Board {
                 playerNumber = 1;
             }
 
+
             printStream.print("Player "+Integer.toString(playerNumber)+", Please choose a number between 1-9 corresponding to the board: ");
             String choice = readline();
             currentBoard = fillBoardArray(choice, playerNumber);
             drawBoard.redraw(currentBoard);
+
+            if(gameWinner.checkGameWinner(currentBoard, playerNumber)) {
+                break;
+            }
 
             playerNumber++;
         }

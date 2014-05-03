@@ -9,7 +9,8 @@ public class Main {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         PrintStream out = System.out;
         DrawBoard drawBoard = new DrawBoard(out);
-        Board ticTacToe = new Board(bufferedReader, out, drawBoard);
+        GameWinner gameWinner = new GameWinner(out);
+        Board ticTacToe = new Board(bufferedReader, out, drawBoard, gameWinner);
         CurrentGame currentGame = new CurrentGame(drawBoard, ticTacToe);
         currentGame.start();
     }

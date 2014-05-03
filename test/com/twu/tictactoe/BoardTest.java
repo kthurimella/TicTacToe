@@ -22,7 +22,7 @@ public class BoardTest {
         printStream = mock(PrintStream.class);
         bufferedReader = mock(BufferedReader.class);
         drawBoard = mock(DrawBoard.class);
-        testBoard = new Board(bufferedReader, printStream, drawBoard);
+        testBoard = new Board(bufferedReader, printStream, drawBoard, null);
     }
 
     @Test
@@ -47,7 +47,7 @@ public class BoardTest {
         testBoard.fillBoardArray("3", 1);
         testBoard.fillBoardArray("3", 2);
 
-        verify(printStream,times(3)).println("Position is already taken!");
+        verify(printStream, times(3)).println("Position is already taken!");
     }
 
     @Test
