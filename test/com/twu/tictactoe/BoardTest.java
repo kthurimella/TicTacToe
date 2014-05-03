@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintStream;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -33,9 +34,18 @@ public class BoardTest {
 
     @Test
     public void shouldReturnArrayIndicatingPlayerTwoPosition(){
-        int[] playerOneBoard = testBoard.fillBoardArray("5", 2);
+        int[] playerTwoBoard = testBoard.fillBoardArray("5", 2);
         int[] properBoard = {0, 0, 0, 0, 2, 0, 0, 0, 0};
 
-        assertArrayEquals(properBoard, playerOneBoard);
+        assertArrayEquals(properBoard, playerTwoBoard);
+    }
+
+    @Test
+    public void shouldReturnLocationErrorWhenPassedSameLocation() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("3").thenReturn("3").thenReturn("5");
+
+        testBoard.playGame();
+
+        verify(printStream).println("Position is already taken!");
     }
 }

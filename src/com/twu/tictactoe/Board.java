@@ -25,16 +25,24 @@ public class Board {
         drawBoard.redraw(currentBoard);
         printStream.print("Player 2, Please choose a number between 1-9 corresponding to the board: ");
         String second = readline();
+
+        while(second.equals(first)){
+            printStream.println("Position is already taken!");
+            printStream.print("Player 2, Please choose a number between 1-9 corresponding to the board: ");
+            second = readline();
+        }
         currentBoard = fillBoardArray(second, 2);
         drawBoard.redraw(currentBoard);
     }
 
     public int[] fillBoardArray(String position, int playerNumber) {
+        int intPosition = Integer.parseInt(position);
+
         if(playerNumber == 1) {
-            currentBoard[Integer.parseInt(position) - 1] = 1;
+            currentBoard[intPosition - 1] = 1;
         }
         else if(playerNumber == 2){
-            currentBoard[Integer.parseInt(position) - 1] = 2;
+            currentBoard[intPosition - 1] = 2;
         }
         return currentBoard;
     }
