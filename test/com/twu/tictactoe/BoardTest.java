@@ -4,53 +4,38 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.PrintStream;
-import java.util.Arrays;
 
 import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class BoardTest {
     private Board testBoard;
     private PrintStream printStream;
     private BufferedReader bufferedReader;
+    private DrawBoard drawBoard;
 
     @Before
     public void setUp() throws Exception {
         printStream = mock(PrintStream.class);
         bufferedReader = mock(BufferedReader.class);
-        testBoard = new Board(bufferedReader, printStream);
+        drawBoard = mock(DrawBoard.class);
+        testBoard = new Board(bufferedReader, printStream, drawBoard);
     }
 
     @Test
-    public void shouldReturnBoardWhenBoardIsDrawn(){
-        testBoard.draw();
-        verify(printStream).println("   |   |   \n-----------\n   |   |   \n-----------\n   |   |   ");
+    public void shouldReturnArrayIndicatingPlayerOnePosition(){
+        int[] playerOneBoard = testBoard.fillBoardArray("3", 1);
+        int[] properBoard = {0, 0, 1, 0, 0, 0, 0, 0, 0};
+
+        assertArrayEquals(properBoard, playerOneBoard);
     }
 
     @Test
-    public void shouldReturnArrayWithCorrectPosition() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("3");
-        char[][] currentArray = testBoard.handleChoice();
-        char[][] expectedArray = {{ 0 ,0 ,'X' },{0,0,0 },{0, 0, 0}};
-        assertArrayEquals(expectedArray, currentArray);
-    }
+    public void shouldReturnArrayIndicatingPlayerTwoPosition(){
+        int[] playerOneBoard = testBoard.fillBoardArray("5", 2);
+        int[] properBoard = {0, 0, 0, 0, 2, 0, 0, 0, 0};
 
-    @Test
-    public void shouldReturnBoardWithCorrectPosition() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("3");
-        testBoard.redraw(testBoard.handleChoice());
-        verify(printStream).println("  |   | X \n-----------\n  |   | \n-----------\n  |   |  \n");
+        assertArrayEquals(properBoard, playerOneBoard);
     }
-
-    @Test
-    public void shouldReturnBoardWithPlayerTwoMove() throws IOException {
-        when(bufferedReader.readLine()).thenReturn("5");
-        testBoard.redraw(testBoard.handleChoice());
-        verify(printStream).println("  |   | X \n-----------\n  | O  | \n-----------\n  |   |  \n");
-    }
-
-    
 }

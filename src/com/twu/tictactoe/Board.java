@@ -4,108 +4,38 @@ package com.twu.tictactoe;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 
 public class Board {
 
+    private DrawBoard drawBoard;
     private BufferedReader bufferedReader;
     private PrintStream printStream;
+    int[] currentBoard = new int[9];
 
-    public Board(BufferedReader bufferedReader, PrintStream printStream){
+    public Board(BufferedReader bufferedReader, PrintStream printStream, DrawBoard drawBoard){
         this.printStream = printStream;
         this.bufferedReader = bufferedReader;
+        this.drawBoard = drawBoard;
     }
 
-    public void draw() {
-        printStream.println("   |   |   \n-----------\n   |   |   \n" +
-                "-----------\n   |   |   ");
-    }
-
-    public void start() {
-        draw();
+    public void playGame() {
         printStream.print("Player 1, Please choose a number between 1-9 corresponding to the board: ");
         String first = readline();
-        char[][] firstChoice = handleChoice(first, "");
+        currentBoard = fillBoardArray(first, 1);
+        drawBoard.redraw(currentBoard);
         printStream.print("Player 2, Please choose a number between 1-9 corresponding to the board: ");
         String second = readline();
-        char[][] secondChoice = handleChoice(first, second);
+        currentBoard = fillBoardArray(second, 2);
+        drawBoard.redraw(currentBoard);
     }
 
-    public void redraw(char[][] firstChoice) {
-
-        String redrawBoard = "";
-
-        for(int row = 0; row < 3; row++) {
-            for(int column = 0; column < 3; column++) {
-                if(column != 2) {
-                    redrawBoard += firstChoice[row][column] + "  | ";
-                }
-                else{
-                    redrawBoard += firstChoice[row][column];
-
-                }
-            }
-
-            redrawBoard += "\n";
-
-            if(row != 2 ){
-                redrawBoard += ("-----------");
-            }
-
-            redrawBoard += "\n";
+    public int[] fillBoardArray(String position, int playerNumber) {
+        if(playerNumber == 1) {
+            currentBoard[Integer.parseInt(position) - 1] = 1;
         }
-
-        printStream.println(redrawBoard);
-    }
-
-    public char[][] handleChoice(String firstChoice, String secondChoice){
-        char[][] currentBoard = new char[3][3];
-
-        switch (Integer.parseInt(firstChoice)){
-            case 1: currentBoard[0][0] = 'X';
-                break;
-            case 2: currentBoard[0][1] = 'X';
-                break;
-            case 3: currentBoard[0][2] = 'X';
-                break;
-            case 4: currentBoard[1][0] = 'X';
-                break;
-            case 5: currentBoard[1][1] = 'X';
-                break;
-            case 6: currentBoard[1][2] = 'X';
-                break;
-            case 7: currentBoard[2][0] = 'X';
-                break;
-            case 8: currentBoard[2][1] = 'X';
-                break;
-            case 9: currentBoard[2][2] = 'X';
-                break;
+        else if(playerNumber == 2){
+            currentBoard[Integer.parseInt(position) - 1] = 2;
         }
-
-        switch (Integer.parseInt(secondChoice)){
-            case 1: currentBoard[0][0] = 'O';
-                break;
-            case 2: currentBoard[0][1] = 'O';
-                break;
-            case 3: currentBoard[0][2] = 'O';
-                break;
-            case 4: currentBoard[1][0] = 'O';
-                break;
-            case 5: currentBoard[1][1] = 'O';
-                break;
-            case 6: currentBoard[1][2] = 'O';
-                break;
-            case 7: currentBoard[2][0] = 'O';
-                break;
-            case 8: currentBoard[2][1] = 'O';
-                break;
-            case 9: currentBoard[2][2] = 'O';
-                break;
-        }
-
         return currentBoard;
     }
 
@@ -118,3 +48,5 @@ public class Board {
         return "";
     }
 }
+
+
